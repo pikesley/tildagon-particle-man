@@ -1,0 +1,5 @@
+{
+    "name": "Collider",
+    "path": "apps.collider.app",
+    "callable": "Collider"
+  }
