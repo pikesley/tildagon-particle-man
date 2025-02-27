@@ -85,12 +85,16 @@ class ParticleMan(app.App):
         self.draw_overlays(ctx)
 
         if self.annotate:
-            ctx.move_to(0, 0)
-            ctx.rgb(*rgb_from_hue(self.background_hue + 0.5))
-            ctx.text_align = ctx.CENTER
-            ctx.text_baseline = ctx.MIDDLE
-            ctx.font_size = 40
-            ctx.text(f"{self.kinetic_energy:0.2f}")
+            self.write_k_e(ctx)
+
+    def write_k_e(self, ctx):
+        """Write the total Kinetic Energy."""
+        ctx.move_to(0, 0)
+        ctx.rgb(*rgb_from_hue(self.background_hue + 0.5))
+        ctx.text_align = ctx.CENTER
+        ctx.text_baseline = ctx.MIDDLE
+        ctx.font_size = 40
+        ctx.text(f"{self.kinetic_energy:0.2f}")
 
     def scan_buttons(self):
         """Buttons."""

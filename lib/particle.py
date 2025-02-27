@@ -54,18 +54,20 @@ class Particle:
 
     def draw(self, ctx):
         """Draw."""
+        colour = rgb_from_hue(self.hue)
+
         layers = [
-            (rgb_from_hue(self.hue), 1.0, ctx.fill, 0),
-            (
-                (c * conf["border-darkening-factor"] for c in rgb_from_hue(self.hue)),
+            (colour, 1.0, ctx.fill, 0),  # body
+            (  # border
+                (c * conf["border-darkening-factor"] for c in colour),
                 1.0,
                 ctx.stroke,
                 0,
             ),
         ]
         if self.colliding_counter > 0 and self.fancy_bounce:
-            layers[1] = (
-                rgb_from_hue(self.hue + 0.5),
+            layers[1] = (  # special border
+                colour,
                 conf["collision-halo"]["opacity"]
                 * (self.colliding_counter / self.max_colliding_counter),
                 ctx.stroke,
