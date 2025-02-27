@@ -24,6 +24,8 @@ clean:
 	@find . -depth -name __pycache__ -exec rm -fr {} \;
 	@find . -depth -name .ruff_cache -exec rm -fr {} \;
 	@find . -depth -name .pytest_cache -exec rm -fr {} \;
+	@find . -depth -name .coverage -exec rm -fr {} \;
+	@find . -depth -name .coverage -exec rm -fr {} \;
 
 test:
 	python -m pytest \

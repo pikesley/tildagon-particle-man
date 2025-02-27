@@ -9,8 +9,8 @@ else:
     path = ""
     ASSET_PATH = "apps/"
 
-    if "github_user_tildagon_collider" in apps:
-        ASSET_PATH = "/apps/github_user_tildagon_collider/"
+    if "github_user_tildagon_particle_man" in apps:
+        ASSET_PATH = "/apps/github_user_tildagon_particle_man/"
 
     if "pacman" in apps:
-        ASSET_PATH = "apps/collider/"
+        ASSET_PATH = "apps/particle_man/"

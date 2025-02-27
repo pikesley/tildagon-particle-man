@@ -1,5 +1,5 @@
 {
-    "name": "Collider",
-    "path": "apps.collider.app",
-    "callable": "Collider"
+    "name": "Particle Man",
+    "path": "apps.particle_man.app",
+    "callable": "ParticleMan"
   }

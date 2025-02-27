@@ -1,6 +1,6 @@
 [app]
 # The name of your app as displayed in the menu
-name = "Collider"
+name = "Particle Man"
 
 # The submenu where your app should appear.
 # One of: "Badge", "Music", "Media", "Apps", "Games"
@@ -18,20 +18,20 @@ category = "Games"
 
 [entry]
 # The name of your entry point `Application` class
-class = "Collider"
+class = "ParticleMan"
 
 [metadata]
 # Your nickname.  Must be at most 32 characters!
-author = ""
+author = "pikesley"
 
 # License of your app as an SPDX identifier: <https://spdx.org/licenses/>
 license = "MIT"
 
 # URL to the repository of your app.
-url = "https://www.github.com/"
+url = "https://www.github.com/pikesley/tildagon-particle-man"
 
 # Description of your app.  Maximum 140 characters!
-description = "Collider"
+description = "Elastically-colliding particles"
 
 # Version number of your app.  If you push a commit where this number is
 # increased, we interpret this as a new version being released.

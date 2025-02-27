@@ -11,4 +11,6 @@ class Background:
 
     def draw(self, ctx):
         """Draw ourself."""
-        ctx.rgba(*self.colour).rectangle(-120, -120, 240, 240).fill()
+        ctx.rgba(*self.colour)
+        ctx.rectangle(-120, -120, 240, 240)
+        ctx.fill()
