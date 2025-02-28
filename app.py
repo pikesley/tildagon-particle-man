@@ -33,31 +33,47 @@ class ParticleMan(app.App):
         self.background_hue = random()
         self.particles = []
         for _ in range(self.particle_count):
-            self.particles.append(
-                Particle(
-                    x=randint(-100, 100),
-                    y=randint(-100, 100),
-                    mass=randint(*conf["particles"]["mass-range"]),
-                    speed=randint(*conf["particles"]["speed-range"]),
-                    angle=random() * 360,
-                    hue=self.background_hue,
-                    annotate=self.annotate,
-                    fancy_bounce=self.fancy_bounce,
-                )
-            )
+            self.add_particle()
+
         self.kinetic_energy = sum(
             [particle.kinetic_energy for particle in self.particles]
         )
 
-    def update(self, _):
-        """Update."""
-        self.scan_buttons()
-        for particle in self.particles:
-            particle.move()
+    def add_particle(self):
+        """Add a particle."""
+        self.particles.append(
+            Particle(
+                x=randint(-100, 100),
+                y=randint(-100, 100),
+                mass=randint(*conf["particles"]["mass-range"]),
+                speed=randint(*conf["particles"]["speed-range"]),
+                angle=random() * 360,
+                hue=self.background_hue,
+                annotate=self.annotate,
+                fancy_bounce=self.fancy_bounce,
+            )
+        )
 
+    def remove_particle(self):
+        """Remove a randomly-selected particle."""
+        if len(self.particles) > 1:
+            index = randint(0, len(self.particles) - 1)
+            self.particles = self.particles[:index] + self.particles[index + 1 :]
+
+    def do_collisions(self):
+        """Collide the particles."""
         for i in range(len(self.particles)):
             for j in range(i + 1, len(self.particles)):
                 self.particles[i].collide(self.particles[j], self.background_hue)
+
+    def update(self, _):
+        """Update."""
+        self.scan_buttons()
+
+        for particle in self.particles:
+            particle.move()
+
+        self.do_collisions()
 
         self.kinetic_energy = sum(
             [particle.kinetic_energy for particle in self.particles]
@@ -113,6 +129,14 @@ class ParticleMan(app.App):
             self.fancy_bounce = not self.fancy_bounce
             for particle in self.particles:
                 particle.fancy_bounce = self.fancy_bounce
+
+        if self.button_states.get(BUTTON_TYPES["UP"]):
+            self.button_states.clear()
+            self.add_particle()
+
+        if self.button_states.get(BUTTON_TYPES["DOWN"]):
+            self.button_states.clear()
+            self.remove_particle()
 
         if self.button_states.get(BUTTON_TYPES["CONFIRM"]):
             self.button_states.clear()

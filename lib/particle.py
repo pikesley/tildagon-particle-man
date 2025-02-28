@@ -29,7 +29,7 @@ class Particle:
         self.angle = angle
         self.hue = hue
         self.colliding_counter = 0
-        self.max_colliding_counter = 10
+        self.max_colliding_counter = conf["collision-halo"]["additional-radius"]
         self.annotate = annotate
         self.fancy_bounce = fancy_bounce
 
@@ -49,6 +49,9 @@ class Particle:
 
     def move(self):
         """Move."""
+        if self.colliding_counter > 0:
+            self.colliding_counter -= 1
+
         self.position += self.velocity
         self.edges()
 
@@ -71,7 +74,7 @@ class Particle:
                 conf["collision-halo"]["opacity"]
                 * (self.colliding_counter / self.max_colliding_counter),
                 ctx.stroke,
-                conf["collision-halo"]["additional-radius"],
+                self.colliding_counter,
             )
 
         for colour, opacity, method, extra_radius in layers:
@@ -101,9 +104,6 @@ class Particle:
 
     def collide(self, other, hue=1.0):
         """Crash into a particle."""
-        for particle in (self, other):
-            particle.colliding_counter -= 1
-
         impact_vector = other.position - self.position
         delta = impact_vector.magnitude
 
